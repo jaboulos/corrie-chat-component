@@ -5,5 +5,4 @@ const port = 3028;
 
 app.use(express.static(path.join(__dirname, '../dist')));
 
-app.listen(port, console.log('listening on port' + port));
-
+app.listen(port, console.log('listening on port ' + port));
