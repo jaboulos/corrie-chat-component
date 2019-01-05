@@ -1,9 +1,31 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { twitchChatGenerator } from '../functions/chatGenerator.js';
 
-const test = <h1>haha</h1>;
+class Test extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {chat: ''};
 
-ReactDOM.render(test, document.getElementById('main'));
+    this.test = this.test.bind(this);
+  }
 
-export default test;
+  test() {
+    this.setState(twitchChatGenerator());
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => this.test(), 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  render() {
+    return <h3>{this.state.chat}</h3>;
+  }
+}
+
+ReactDOM.render(<Test />, document.getElementById('main'));
 
