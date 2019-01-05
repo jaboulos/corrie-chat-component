@@ -24,7 +24,7 @@ const globalEmoteSpamGenerator = (repeatNum = 1) => {
   return `${randomGlobalEmote()} `.repeat(repeatNum);
 };
 
-const interjections = ['woooooooooow', 'lol', 'lmao', 'hahahahahahaha', 'wth', 'huzzah', 'whyyyy', 'aha', 'ahem', 'ahh', 'ahoy', 'alas', 'arg', 'aw', 'bam', 'bingo', 'blah', 'boo', 'bravo', 'brr', 'cheers', 'congrats', 'congratulations', 'dang', 'drat', 'darn', 'duh', 'eek', 'eh', 'encore', 'eureka', 'fiddlesticks', 'gadzooks', 'gee', 'gee whiz', 'golly', 'goodbye', 'goodness', 'good grief', 'gosh', 'haha', 'hah', 'hallelujah', 'hello', 'hey', 'hmm', 'holy buckets', 'holy cow', 'holy smokes', 'hon hon hon', 'hot dog', 'huh', 'humph', 'hurray', 'oh', 'oh dear', 'oh my', 'oh well', 'oops', 'ouch', 'ow', 'phew', 'phooey', 'pooh', 'pow', 'rats', 'shh', 'shoo', 'thanks', 'there', 'tut-tut', 'uh-uh', 'uh-oh', 'ugh', 'uhhh', 'wahoo', 'well', 'whoa', 'whoops', 'wow', 'yeah', 'yes', 'yikes', 'yippee', 'yo', 'yuck'];
+const interjections = ['kek', 'huehuehue','woooooooooow', 'lol', 'lmao', 'hahahahahahaha', 'wth', 'huzzah', 'whyyyy', 'aha', 'ahem', 'ahh', 'ahoy', 'alas', 'arg', 'aw', 'bam', 'bingo', 'blah', 'boo', 'bravo', 'brr', 'cheers', 'congrats', 'congratulations', 'dang', 'drat', 'darn', 'duh', 'eek', 'eh', 'encore', 'eureka', 'fiddlesticks', 'gadzooks', 'gee', 'gee whiz', 'golly', 'goodbye', 'goodness', 'good grief', 'gosh', 'haha', 'hah', 'hallelujah', 'hello', 'hey', 'hmm', 'holy buckets', 'holy cow', 'holy smokes', 'hon hon hon', 'hot dog', 'huh', 'humph', 'hurray', 'oh', 'oh dear', 'oh my', 'oh well', 'oops', 'ouch', 'ow', 'phew', 'phooey', 'pooh', 'pow', 'rats', 'shh', 'shoo', 'thanks', 'there', 'tut-tut', 'uh-uh', 'uh-oh', 'ugh', 'uhhh', 'wahoo', 'well', 'whoa', 'whoops', 'wow', 'yeah', 'yes', 'yikes', 'yippee', 'yo', 'yuck'];
 
 const randomCasing = (string) => {
   return randomBoolean() ? string.toUpperCase() : string;
@@ -57,7 +57,7 @@ const randomChatGenerator = () => {
     '10': `${randomStatementGenerator()} ${randomGlobalEmote()}`,
     '11': `${randomCasing(randomAdjectiveGenerator())}`,
   };
-  return optionObj[generateRandomNumber(1, 13).toString()];
+  return optionObj[generateRandomNumber(1, 11).toString()];
 };
 
 export const twitchChatGenerator = () => {
