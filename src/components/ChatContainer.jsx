@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { twitchChatGenerator } from '../functions/chatGenerator.js';
+import { generateRandomNumber, twitchChatGenerator } from '../functions/chatGenerator.js';
+import { emotes } from '../functions/emotesObject.js';
 
 class Test extends React.Component {
   constructor(props) {
@@ -8,14 +9,25 @@ class Test extends React.Component {
     this.state = {chat: ''};
 
     this.test = this.test.bind(this);
+    this.emoteCheck = this.emoteCheck.bind(this);
+  }
+
+  emoteCheck(obj) {
+    const words = obj.chat.split(' ');
+    const test = words.map(word => {
+      return emotes.globalEmotes[word] ? `<span> <img src=${emotes.globalEmotes[word]} /> </span>` : word;
+    });
+    obj.chat = test.join(' ');
+    return obj;
   }
 
   test() {
-    this.setState(twitchChatGenerator());
+    const chatsWithEmotes = this.emoteCheck(twitchChatGenerator());
+    this.setState(chatsWithEmotes);
   }
 
   componentDidMount() {
-    this.interval = setInterval(() => this.test(), 1000);
+    this.interval = setInterval(() => this.test(), 700);
   }
 
   componentWillUnmount() {
@@ -23,7 +35,10 @@ class Test extends React.Component {
   }
 
   render() {
-    return <h3>{this.state.chat}</h3>;
+    console.log(this.state)
+    return (
+      <div dangerouslySetInnerHTML={{__html: this.state.chat}} />
+    );
   }
 }
 

@@ -56,7 +56,7 @@ export const emotes = {
     'R)': 'https://s3-us-west-1.amazonaws.com/twitchchat/R).png',
     ':p': 'https://s3-us-west-1.amazonaws.com/twitchchat/p.png',
     ';p': 'https://s3-us-west-1.amazonaws.com/twitchchat/winkyp.png',
-    ';)': 'https://s3-us-west-1.amazonaws.com/twitchchat/winky.png',
+    ';)': 'https://s3-us-west-1.amazonaws.com/twitchchat/wink.png',
     ':\\': 'https://s3-us-west-1.amazonaws.com/twitchchat/o.png',
     'B)': 'https://s3-us-west-1.amazonaws.com/twitchchat/B).png',
     ':z': 'https://s3-us-west-1.amazonaws.com/twitchchat/z.png',
