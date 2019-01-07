@@ -1,21 +1,68 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { twitchChatGenerator } from '../functions/chatGenerator.js';
+import {
+  generateRandomNumber,
+  twitchChatGenerator
+} from '../functions/chatGenerator.js';
+import { emotes } from '../functions/emotesObject.js';
+import axios from 'axios';
 
 class Test extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {chat: ''};
+    this.state = { chat: '' };
 
     this.test = this.test.bind(this);
+    this.emoteCheck = this.emoteCheck.bind(this);
+    this.grabUsername = this.grabUsername.bind(this);
+  }
+
+  emoteCheck(obj) {
+    const words = obj.chat.split(' ');
+    const wordsWithEmoteImgTags = words.map(word => {
+      return emotes.globalEmotes[word]
+        ? `<span> <img src=${emotes.globalEmotes[word]} /> </span>`
+        : word;
+    });
+    obj.chat = wordsWithEmoteImgTags.join(' ');
+    return obj;
+  }
+
+//This get request is to retrieve user information based off of the supplied user ID
+  grabUsername(userID) {
+    return axios.get('/users', {
+      params: {
+        id: userID
+      }
+    })
+      .then(userObj => {
+        return userObj.data;
+      })
+      .catch(err => {
+        console.error('error from ChatContainer', err);
+      });
   }
 
   test() {
-    this.setState(twitchChatGenerator());
+    const chatsWithEmotes = this.emoteCheck(twitchChatGenerator());
+    return this.grabUsername(chatsWithEmotes.user_id)
+      .then(userObj => {
+        this.setState({
+        // video_timestamp:
+          user_id: chatsWithEmotes.user_id,
+          chat: chatsWithEmotes.chat,
+          username: userObj.username,
+          twitch_sub: userObj.twitch_sub,
+          mod_status: userObj.mod_status
+        });
+      })
+      .catch(err => {
+        console.error('error from ChatContainer', err);
+      });
   }
 
   componentDidMount() {
-    this.interval = setInterval(() => this.test(), 1000);
+    this.interval = setInterval(() => this.test(), 5000);
   }
 
   componentWillUnmount() {
@@ -23,9 +70,14 @@ class Test extends React.Component {
   }
 
   render() {
-    return <h3>{this.state.chat}</h3>;
+    // console.log('👻', this.state);
+    return (
+      <div>
+        <span> {this.state.username} </span>{' '}
+        <span dangerouslySetInnerHTML={{ __html: this.state.chat }} />
+      </div>
+    );
   }
 }
 
 ReactDOM.render(<Test />, document.getElementById('main'));
-
