@@ -21,6 +21,18 @@ class Test extends React.Component {
     return obj;
   }
 
+  grabUsername(obj) {
+    const username = obj.user_id;
+    fetch('http://localhost:8080/users', {
+      method: 'GET',
+      body: username.toString()
+    });
+    // send request to /username
+    // query db
+    // return username and privledges
+
+  }
+
   test() {
     const chatsWithEmotes = this.emoteCheck(twitchChatGenerator());
     this.setState(chatsWithEmotes);
@@ -35,7 +47,7 @@ class Test extends React.Component {
   }
 
   render() {
-    console.log(this.state)
+    console.log(this.state);
     return (
       <div dangerouslySetInnerHTML={{__html: this.state.chat}} />
     );

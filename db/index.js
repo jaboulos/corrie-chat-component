@@ -1,10 +1,3 @@
-
-/*
-set up database connection
-need to be able to query a username
-then need to be able to save the information to a new database
-*/
-
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize('twitchchat', 'root', 'WallacePennyToby', {
@@ -54,7 +47,7 @@ const Chat = sequelize.define('chats', {
   }
 });
 
-function test() {
+// function test() {
   // sequelize
   //    .authenticate()
   //    .then(() => {
@@ -84,20 +77,33 @@ function test() {
 
 // test()
 
-export const saveChatToDb = (id) => {
-  User.findById(id)
+const grabUsernameFromDb = (id) => {
+  return User.findByPk(id)
     .then((foundUser) => {
-      const username = foundUser.dataValues.username;
-      return functionInReactThatGrabsOtherStuff(username);
-      console.log(me)
-    })
-    .then((chatObj) => {
-      return Chat.create({ chatObj })
-    })
-    .then((message) => {
-      console.log('the chat was successfully saved! ', message);
+      const username = foundUser.dataValues;
+      return username;
     })
     .catch((err)=> {
-      console.error(err);
-    })
-}
+      console.error('from db', err);
+    });
+};
+
+module.exports = grabUsernameFromDb;
+
+// export const saveChatToDb = (id) => {
+//   User.findById(id)
+//     .then((foundUser) => {
+//       const username = foundUser.dataValues.username;
+//       return functionInReactThatGrabsOtherStuff(username);
+//       console.log(me)
+//     })
+//     .then((chatObj) => {
+//       return Chat.create({ chatObj })
+//     })
+//     .then((message) => {
+//       console.log('the chat was successfully saved! ', message);
+//     })
+//     .catch((err)=> {
+//       console.error(err);
+//     })
+//
