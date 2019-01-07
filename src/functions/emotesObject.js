@@ -1,4 +1,8 @@
 export const emotes = {
+  icons: {
+    mod: 'https://s3-us-west-1.amazonaws.com/twitchchat/mod.png',
+    sub: 'https://s3-us-west-1.amazonaws.com/twitchchat/sub.png'
+  },
   streamerEmotes: {
     lfs0: 'https://s3-us-west-1.amazonaws.com/twitchchat/lfs0.jpg',
     lfs00: 'https://s3-us-west-1.amazonaws.com/twitchchat/lfs00.jpg',
@@ -45,8 +49,7 @@ export const emotes = {
     lfsWT: 'https://s3-us-west-1.amazonaws.com/twitchchat/lfsWT.jpg',
     lfsX: 'https://s3-us-west-1.amazonaws.com/twitchchat/lfsX.jpg',
     lfsY: 'https://s3-us-west-1.amazonaws.com/twitchchat/lfsY.jpg',
-    lfsZ: 'https://s3-us-west-1.amazonaws.com/twitchchat/lfsZ.jpg',
-    sub: 'https://s3-us-west-1.amazonaws.com/twitchchat/sub.png'
+    lfsZ: 'https://s3-us-west-1.amazonaws.com/twitchchat/lfsZ.jpg'
   },
   globalEmotes: {
     '<3': 'https://s3-us-west-1.amazonaws.com/twitchchat/<3.png',

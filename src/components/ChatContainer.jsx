@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {
-  generateRandomNumber,
-  twitchChatGenerator
-} from '../functions/chatGenerator.js';
-import { emotes } from '../functions/emotesObject.js';
 import axios from 'axios';
+import { PostMessageBox } from './PostMessageBox.jsx'
+import { generateRandomNumber, twitchChatGenerator } from '../functions/chatGenerator.js';
+import { emotes } from '../functions/emotesObject.js';
 
-class Test extends React.Component {
+
+class ChatContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { chat: '' };
@@ -72,12 +71,17 @@ class Test extends React.Component {
   render() {
     // console.log('👻', this.state);
     return (
-      <div>
-        <span> {this.state.username} </span>{' '}
-        <span dangerouslySetInnerHTML={{ __html: this.state.chat }} />
+      <div class="chat">
+        <div className="header"> Chat on Videos </div>
+        <div className="chatDisplay">
+          <span> {this.state.username} </span>{' '}
+          <span dangerouslySetInnerHTML={{ __html: this.state.chat }} />
+        </div>
+        <PostMessageBox />
       </div>
     );
   }
 }
 
-ReactDOM.render(<Test />, document.getElementById('main'));
+ReactDOM.render(<ChatContainer />, document.getElementById('main'));
+

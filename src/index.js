@@ -1,1 +1,1 @@
-import Test from './components/ChatContainer.jsx';
+import ChatContainer from './components/ChatContainer.jsx';
