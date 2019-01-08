@@ -18,7 +18,6 @@ app.use(express.static(path.join(__dirname, '../dist')));
 app.get('/users', (req, res) => {
   return grabUsernameFromDb(req.query.id)
     .then(userObj => {
-      console.log(userObj);
       res.send(userObj);
     })
     .catch(err => {

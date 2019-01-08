@@ -16,7 +16,7 @@ const randomBoolean = () => {
 };
 
 const randomGlobalEmote = () => {
-  const randomEmoteIndex = generateRandomNumber(0, 213);
+  const randomEmoteIndex = generateRandomNumber(0, globalEmoteArray.length - 1);
   return globalEmoteArray[randomEmoteIndex];
 };
 
