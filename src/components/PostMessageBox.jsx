@@ -57,7 +57,7 @@ export class PostMessageBox extends React.Component {
           <EmoteSelector />
         </TextBox>
         <PostButtonContainer>
-          <PostButton>Chat</PostButton>
+          <PostButton onClick={(e) => this.props.getTime(e)}>Chat</PostButton>
         </PostButtonContainer>
       </TextBoxContainer>
     );

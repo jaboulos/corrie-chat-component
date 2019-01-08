@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import styled from 'styled-components';
+import Timer from 'easytimer.js';
 import { PostMessageBox } from './PostMessageBox.jsx';
 import ChatBox from './ChatBox.jsx';
 import { Chat } from './Chat.jsx';
 import { generateRandomNumber, twitchChatGenerator } from '../functions/chatGenerator.js';
 import { emotes } from '../functions/emotesObject.js';
-// import * as Scroll from 'react-scroll';
-// import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
-// const scroll = Scroll.animateScroll;
+
+const timer = new Timer();
 
 const App = styled.div`
   background-color: #faf9fa;
@@ -24,16 +24,30 @@ const Header = styled.div`
 `;
 
 
+// const VideoTest = (props) => {
+//   return (
+//     <div id="videoTest" onClick={(e) => console.log('video playing', e)} >
+//       <iframe id="existing-iframe-example"
+//         allow="autoplay;"
+//         width="640" height="360"
+//         src="https://www.youtube.com/embed/UOxkGD8qRB4?autoplay=1&enablejsapi=1"
+//         frameborder="0"
+//       ></iframe>
+//     </div>
+//   )
+// }
 
 export class ChatContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { twitchChats: [] };
 
-    this.test = this.test.bind(this);
+    this.generateRandomChats = this.generateRandomChats.bind(this);
     this.emoteCheck = this.emoteCheck.bind(this);
     this.grabUsername = this.grabUsername.bind(this);
-    // this.updateScroll = this.updateScroll.bind(this);
+    this.onStart = this.onStart.bind(this);
+    // this.testVideo = this.testVideo.bind(this);
+    this.formatTime = this.formatTime.bind(this);
   }
 
   emoteCheck(obj) {
@@ -61,7 +75,7 @@ export class ChatContainer extends React.Component {
       });
   }
 
-  test() {
+  generateRandomChats() {
     const chatsWithEmotes = this.emoteCheck(twitchChatGenerator());
     return this.grabUsername(chatsWithEmotes.user_id)
       .then(userObj => {
@@ -70,7 +84,8 @@ export class ChatContainer extends React.Component {
           chat: chatsWithEmotes.chat,
           username: userObj.username,
           twitch_sub: userObj.twitch_sub,
-          mod_status: userObj.mod_status
+          mod_status: userObj.mod_status,
+          currentTimeStamp: this.formatTime()
         };
         this.setState({
           twitchChats: [...this.state.twitchChats, chatInfo]
@@ -81,35 +96,58 @@ export class ChatContainer extends React.Component {
       });
   }
 
-  componentDidMount() {
-    this.interval = setInterval(() => this.test(), 500);
-  }
 
-  // componentWillUnmount() {
-  //   clearInterval(this.interval);
-  // }
-
-  // updateScroll() {
-  //   scroll.scrollToBottom();
-  // console.log('is this funciton even being called?')
-  // const chatBox = document.getElementById('chatBox');
-  // chatBox.scrollTop = chatBox.scrollHeight;
-
+  //testVideo(e) {
+    // const vid = document.getElementById('videoTest');
+    // vid.ontimeupdate = () => console.log(vid.currentTime);
+    // console.log('e', e);
+    // console.log('video touched', vid);
   //}
 
-  // componentDidUpdate() {
-  //   this.updateScroll();
-  // }
+  onStart() {
+    // async check to see if video id exists in database
+    //   .then(update video state with ID)
+    //   .then(grab all the chats for that video out of db and set twitchChats state)
+
+    //else
+    setInterval(() => this.generateRandomChats(), 500);
+    timer.start();
+  }
+
+  formatTime() {
+    const currentTime = timer.getTimeValues();
+    const seconds = currentTime.seconds < 10 ? `0${currentTime.seconds}` : currentTime.seconds;
+    const minutes = currentTime.minutes < 10 ? `0${currentTime.minutes}` : currentTime.minutes;
+    const hours = currentTime.hours < 10 ? `0${currentTime.hours}` : currentTime.hours;
+
+    if (currentTime.hours < 1) {
+      if (currentTime.minutes < 1) {
+        return `0:${seconds}`;
+      } else {
+        return `${minutes}:${seconds}`;
+      }
+    } else {
+      return `${hours}:${minutes}:${seconds}`;
+    }
+  }
+
+  componentDidMount() {
+    this.onStart();
+  }
 
   render() {
-    console.log('👻', this.state);
+    //console.log('👻', this.state);
     return (
       <App>
+
         <Header>Chat On Videos</Header>
-        <div id="chatBox">
-          <ChatBox chatsArray={this.state.twitchChats} />
-        </div>
-        <PostMessageBox />
+
+        <ChatBox chatsArray={this.state.twitchChats} />
+
+        <PostMessageBox getTime={this.counterEnd}/>
+
+        {/* <VideoTest /> */}
+
       </App>
     );
   }

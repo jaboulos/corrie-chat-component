@@ -15,13 +15,12 @@ const TimeStamp = styled.span`
 `;
 
 export const Chat = props => {
-  console.log('props from within Chat component 🐬', props);
   const chatInfo = props.chat;
   const isSub = chatInfo.twitch_sub;
   const isMod = chatInfo.mod_status;
   return (
     <div>
-      <span>00:00:01</span>{' '}
+      <span>{chatInfo.currentTimeStamp}</span>{' '}{' '}
       <span>{ isMod ? <img width='18px' height='18px' src='https://s3-us-west-1.amazonaws.com/twitchchat/mod.png'/> : null }</span>
       <span>{ isSub ? <img width='18px' height='18px' src='https://s3-us-west-1.amazonaws.com/twitchchat/sub.png'/> : null }</span>
       <Username> {chatInfo.username}</Username>:{' '}
