@@ -15,6 +15,7 @@ const TimeStamp = styled.span`
 `;
 
 export const Chat = props => {
+  console.log('props from within Chat component 🐬', props);
   const chatInfo = props.chat;
   const isSub = chatInfo.twitch_sub;
   const isMod = chatInfo.mod_status;

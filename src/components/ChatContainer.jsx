@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { PostMessageBox } from './PostMessageBox.jsx';
+import ChatBox from './ChatBox.jsx';
 import { Chat } from './Chat.jsx';
 import { generateRandomNumber, twitchChatGenerator } from '../functions/chatGenerator.js';
 import { emotes } from '../functions/emotesObject.js';
@@ -22,14 +23,9 @@ const Header = styled.div`
   box-shadow: inset 0 -1px 0 0 #dad8de;
 `;
 
-const ChatBox = styled.div`
-  padding: 10px;
-  height: 530px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-`;
 
-class ChatContainer extends React.Component {
+
+export class ChatContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { twitchChats: [] };
@@ -44,7 +40,7 @@ class ChatContainer extends React.Component {
     const words = obj.chat.split(' ');
     const wordsWithEmoteImgTags = words.map(word => {
       return emotes.globalEmotes[word]
-        ? `<span> <img width='28px' height='28px' src=${emotes.globalEmotes[word]} /> </span>`
+        ? `<span> <img max-width='28px' max-height='28px' src=${emotes.globalEmotes[word]} /> </span>`
         : word;
     });
     obj.chat = wordsWithEmoteImgTags.join(' ');
@@ -111,17 +107,10 @@ class ChatContainer extends React.Component {
       <App>
         <Header>Chat On Videos</Header>
         <div id="chatBox">
-          <ChatBox>
-            {this.state.twitchChats.length ? this.state.twitchChats.map((twitchChat, index) => {
-              return <Chat chat={twitchChat}/>;
-            }) : null}
-          </ChatBox>
+          <ChatBox chatsArray={this.state.twitchChats} />
         </div>
         <PostMessageBox />
       </App>
     );
   }
 }
-
-ReactDOM.render(<ChatContainer />, document.getElementById('main'));
-

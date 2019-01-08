@@ -24,7 +24,6 @@ const TextArea = styled.textarea`
   border: none;
   color: #433F49;
   resize: none;
-  color: #999;
   font-family: inherit;
   outline: none;
 `;
@@ -54,7 +53,7 @@ export class PostMessageBox extends React.Component {
     return (
       <TextBoxContainer>
         <TextBox>
-          <TextArea>Post a message</TextArea>
+          <TextArea placeholder="Post a message"></TextArea>
           <EmoteSelector />
         </TextBox>
         <PostButtonContainer>
