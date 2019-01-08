@@ -11,6 +11,7 @@ import { emotes } from '../functions/emotesObject.js';
 // const scroll = Scroll.animateScroll;
 
 const App = styled.div`
+  background-color: #faf9fa;
   font-size: 12px;
   width: 335px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -27,7 +28,6 @@ const ChatBox = styled.div`
   overflow-x: hidden;
   overflow-y: scroll;
 `;
-
 
 class ChatContainer extends React.Component {
   constructor(props) {
@@ -95,11 +95,11 @@ class ChatContainer extends React.Component {
 
   // updateScroll() {
   //   scroll.scrollToBottom();
-    // console.log('is this funciton even being called?')
-    // const chatBox = document.getElementById('chatBox');
-    // chatBox.scrollTop = chatBox.scrollHeight;
+  // console.log('is this funciton even being called?')
+  // const chatBox = document.getElementById('chatBox');
+  // chatBox.scrollTop = chatBox.scrollHeight;
 
-  }
+  //}
 
   // componentDidUpdate() {
   //   this.updateScroll();
