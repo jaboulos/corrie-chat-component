@@ -63,6 +63,6 @@ const randomChatGenerator = () => {
 export const twitchChatGenerator = () => {
   return {
     chat: randomChatGenerator(),
-    user_id: generateRandomNumber(1, 501)
+    user_id: generateRandomNumber(1, 503)
   };
 };

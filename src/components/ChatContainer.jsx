@@ -48,6 +48,7 @@ export class ChatContainer extends React.Component {
     this.onStart = this.onStart.bind(this);
     // this.testVideo = this.testVideo.bind(this);
     this.formatTime = this.formatTime.bind(this);
+    this.postMessage = this.postMessage.bind(this);
   }
 
   emoteCheck(obj) {
@@ -96,7 +97,6 @@ export class ChatContainer extends React.Component {
       });
   }
 
-
   //testVideo(e) {
     // const vid = document.getElementById('videoTest');
     // vid.ontimeupdate = () => console.log(vid.currentTime);
@@ -110,7 +110,9 @@ export class ChatContainer extends React.Component {
     //   .then(grab all the chats for that video out of db and set twitchChats state)
 
     //else
-    setInterval(() => this.generateRandomChats(), 500);
+    const intervalID = setInterval(() => this.generateRandomChats(), 500);
+    this.setState({intervalID});
+    console.log('🦴 YO DAWG', intervalID);
     timer.start();
   }
 
@@ -131,6 +133,27 @@ export class ChatContainer extends React.Component {
     }
   }
 
+  postMessage(chat) {
+    clearInterval(this.state.intervalID);
+
+    const message = this.emoteCheck( { chat } );
+
+    const chatInfo = {
+      user_id: 504,
+      chat: message.chat,
+      username: 'taco_TUESDAY',
+      twitch_sub: true,
+      mod_status: false,
+      currentTimeStamp: this.formatTime()
+    };
+    this.setState({
+      twitchChats: [...this.state.twitchChats, chatInfo]
+    });
+
+    const clearTextArea = document.getElementById('textBox');
+    clearTextArea.value = '';
+  }
+
   componentDidMount() {
     this.onStart();
   }
@@ -144,10 +167,9 @@ export class ChatContainer extends React.Component {
 
         <ChatBox chatsArray={this.state.twitchChats} />
 
-        <PostMessageBox getTime={this.counterEnd}/>
+        <PostMessageBox postMessage={this.postMessage}/>
 
         {/* <VideoTest /> */}
-
       </App>
     );
   }

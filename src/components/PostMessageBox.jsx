@@ -26,6 +26,7 @@ const TextArea = styled.textarea`
   resize: none;
   font-family: inherit;
   outline: none;
+  width: 95%;
 `;
 
 const PostButtonContainer = styled.div`
@@ -44,22 +45,18 @@ const PostButton = styled.button`
   font-family: inherit;
 `;
 
-export class PostMessageBox extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
-    return (
-      <TextBoxContainer>
-        <TextBox>
-          <TextArea placeholder="Post a message"></TextArea>
-          <EmoteSelector />
-        </TextBox>
-        <PostButtonContainer>
-          <PostButton onClick={(e) => this.props.getTime(e)}>Chat</PostButton>
-        </PostButtonContainer>
-      </TextBoxContainer>
-    );
-  }
-}
+export const PostMessageBox = (props) => {
+  const chat = document.getElementById('textBox');
+  return (
+    <TextBoxContainer>
+      <TextBox>
+        <TextArea id="textBox" placeholder="Post a message"></TextArea>
+        <EmoteSelector />
+      </TextBox>
+      <PostButtonContainer>
+        <PostButton onClick={() => props.postMessage(chat.value)}>Chat</PostButton>
+      </PostButtonContainer>
+    </TextBoxContainer>
+  );
+
+};
