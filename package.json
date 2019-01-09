@@ -7,6 +7,9 @@
   "engines": {
     "node": ">=6.13.0"
   },
+  "jest": {
+    "setupTestFrameworkScriptFile": "./spec/enzymeConfig.js"
+  },
   "scripts": {
     "test": "jest",
     "node-server": "nodemon server/index.js localhost 3028",
@@ -32,12 +35,15 @@
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "babel-plugin-styled-components": "^1.10.0",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^23.6.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-test-renderer": "^16.7.0",
     "regenerator-runtime": "^0.13.1",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.0",
