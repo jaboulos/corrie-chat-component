@@ -54,7 +54,7 @@ export const PostMessageBox = (props) => {
         <EmoteSelector />
       </TextBox>
       <PostButtonContainer>
-        <PostButton onClick={() => props.postMessage(chat.value)}>Chat</PostButton>
+        <PostButton id="postButton" onClick={() => props.postMessage(chat.value)}>Chat</PostButton>
       </PostButtonContainer>
     </TextBoxContainer>
   );

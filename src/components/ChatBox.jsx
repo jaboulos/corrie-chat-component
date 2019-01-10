@@ -4,11 +4,6 @@ import styled from 'styled-components';
 import autoscroll from 'autoscroll-react';
 import { Chat } from './Chat.jsx';
 
-/*
-onScrolled={e => console.log("the list was scrolled!")}
-                onScrolledTop={e => alert("scrolled to top!")}
-*/
-
 const ChatBoxStyle = styled.div`
   padding: 10px;
   height: 530px;
@@ -20,8 +15,8 @@ class ChatBox extends React.Component {
   render() {
     return (
       <ChatBoxStyle {...this.props} >
-        { this.props.chatsArray.length ? this.props.chatsArray.map(twitchChat => {
-          return <Chat chat={twitchChat}/>;
+        { this.props.chatsArray.length ? this.props.chatsArray.map((twitchChat, index) => {
+          return <Chat key={index} chat={twitchChat}/>;
         }) : null }
       </ChatBoxStyle>
     );
