@@ -1,8 +1,4 @@
 export const emotes = {
-  icons: {
-    mod: 'https://s3-us-west-1.amazonaws.com/twitchchat/mod.png',
-    sub: 'https://s3-us-west-1.amazonaws.com/twitchchat/sub.png'
-  },
   streamerEmotes: {
     lfs0: 'https://s3-us-west-1.amazonaws.com/twitchchat/lfs0.jpg',
     lfs00: 'https://s3-us-west-1.amazonaws.com/twitchchat/lfs00.jpg',
@@ -53,15 +49,15 @@ export const emotes = {
   },
   globalEmotes: {
     '<3': 'https://s3-us-west-1.amazonaws.com/twitchchat/<3.png',
-    '>(': 'https://s3-us-west-1.amazonaws.com/twitchchat/>(.png',
+    '>(': 'https://s3-us-west-1.amazonaws.com/twitchchat/noo.png',
     ':D': 'https://s3-us-west-1.amazonaws.com/twitchchat/D.png',
     'o_O': 'https://s3-us-west-1.amazonaws.com/twitchchat/o_O.png',
-    'R)': 'https://s3-us-west-1.amazonaws.com/twitchchat/R).png',
+    'R)': 'https://s3-us-west-1.amazonaws.com/twitchchat/eyepatch.png',
     ':p': 'https://s3-us-west-1.amazonaws.com/twitchchat/p.png',
     ';p': 'https://s3-us-west-1.amazonaws.com/twitchchat/winkyp.png',
     ';)': 'https://s3-us-west-1.amazonaws.com/twitchchat/wink.png',
     ':\\': 'https://s3-us-west-1.amazonaws.com/twitchchat/o.png',
-    'B)': 'https://s3-us-west-1.amazonaws.com/twitchchat/B).png',
+    'B)': 'https://s3-us-west-1.amazonaws.com/twitchchat/cool.png',
     ':z': 'https://s3-us-west-1.amazonaws.com/twitchchat/z.png',
     ':o': 'https://s3-us-west-1.amazonaws.com/twitchchat/o.png',
     ':(': 'https://s3-us-west-1.amazonaws.com/twitchchat/sad.png',
