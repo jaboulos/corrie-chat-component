@@ -9,7 +9,7 @@ export class EmoteSelector extends React.Component {
   render() {
     return (
       <div>
-        <img />
+        <h3>TEST 🍄</h3>
       </div>
     );
   }

@@ -122,7 +122,6 @@ export class ChatContainer extends React.Component {
     const seconds = currentTime.seconds < 10 ? `0${currentTime.seconds}` : currentTime.seconds;
     const minutes = currentTime.minutes < 10 ? `0${currentTime.minutes}` : currentTime.minutes;
     const hours = currentTime.hours < 10 ? `0${currentTime.hours}` : currentTime.hours;
-
     if (currentTime.hours < 1) {
       if (currentTime.minutes < 1) {
         return `0:${seconds}`;
@@ -143,6 +142,7 @@ export class ChatContainer extends React.Component {
       user_id: 504,
       chat: message.chat,
       username: 'taco_TUESDAY',
+      color: 'slateblue',
       twitch_sub: true,
       mod_status: false,
       currentTimeStamp: this.formatTime()
@@ -151,8 +151,11 @@ export class ChatContainer extends React.Component {
       twitchChats: [...this.state.twitchChats, chatInfo]
     });
 
-    const clearTextArea = document.getElementById('textBox');
-    clearTextArea.value = '';
+
+  }
+
+  startSpamMode() {
+
   }
 
   componentDidMount() {
