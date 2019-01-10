@@ -86,7 +86,8 @@ export class ChatContainer extends React.Component {
           username: userObj.username,
           twitch_sub: userObj.twitch_sub,
           mod_status: userObj.mod_status,
-          currentTimeStamp: this.formatTime()
+          currentTimeStamp: this.formatTime(),
+          color: userObj.color
         };
         this.setState({
           twitchChats: [...this.state.twitchChats, chatInfo]

@@ -5,7 +5,7 @@ import { emotes } from '../functions/emotesObject.js';
 
 const Username = styled.span`
   font-weight: 600;
-  color: blue;
+  color: ${props => props.color}
 `;
 
 const TimeStamp = styled.span`
@@ -15,15 +15,17 @@ const TimeStamp = styled.span`
 `;
 
 export const Chat = props => {
+  console.log('wtf: ', props);
   const chatInfo = props.chat;
   const isSub = chatInfo.twitch_sub;
   const isMod = chatInfo.mod_status;
+  const color = chatInfo.color;
   return (
     <div>
       <span>{chatInfo.currentTimeStamp}</span>{' '}{' '}
       <span>{ isMod ? <img className='mod' width='18px' height='18px' src='https://s3-us-west-1.amazonaws.com/twitchchat/mod.png'/> : null }</span>
       <span>{ isSub ? <img className='sub' width='18px' height='18px' src='https://s3-us-west-1.amazonaws.com/twitchchat/sub.png'/> : null }</span>
-      <Username> {chatInfo.username}</Username>:{' '}
+      <Username color={props.chat.color}> {chatInfo.username}</Username>:{' '}
       <span dangerouslySetInnerHTML={{ __html: chatInfo.chat }} />
     </div>
   );

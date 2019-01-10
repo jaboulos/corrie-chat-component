@@ -29,6 +29,9 @@ const User = sequelize.define('users', {
   },
   mod_status: {
     type: Sequelize.BOOLEAN
+  },
+  color: {
+    type: Sequelize.STRING
   }
 });
 
@@ -77,6 +80,7 @@ const Chat = sequelize.define('chats', {
 
 // test()
 
+
 const grabUsernameFromDb = (id) => {
   return User.findByPk(id)
     .then((foundUser) => {
@@ -90,20 +94,3 @@ const grabUsernameFromDb = (id) => {
 
 module.exports = grabUsernameFromDb;
 
-// export const saveChatToDb = (id) => {
-//   User.findById(id)
-//     .then((foundUser) => {
-//       const username = foundUser.dataValues.username;
-//       return functionInReactThatGrabsOtherStuff(username);
-//       console.log(me)
-//     })
-//     .then((chatObj) => {
-//       return Chat.create({ chatObj })
-//     })
-//     .then((message) => {
-//       console.log('the chat was successfully saved! ', message);
-//     })
-//     .catch((err)=> {
-//       console.error(err);
-//     })
-//
