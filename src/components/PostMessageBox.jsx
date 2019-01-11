@@ -18,6 +18,7 @@ const TextBox = styled.div`
   line-height: 1.5;
   outline: 0;
   transition: box-shadow 0.1s ease-in, border 0.1s ease-in;
+  position: relative;
 `;
 
 const TextArea = styled.textarea`
@@ -82,7 +83,6 @@ export class PostMessageBox extends React.Component {
   }
 
   render() {
-    // const chat = document.getElementById('textBox');
     console.log('🗺 state: ', this.state);
     return (
       <TextBoxContainer>
