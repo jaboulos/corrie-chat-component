@@ -24,19 +24,6 @@ const Header = styled.div`
 `;
 
 
-// const VideoTest = (props) => {
-//   return (
-//     <div id="videoTest" onClick={(e) => console.log('video playing', e)} >
-//       <iframe id="existing-iframe-example"
-//         allow="autoplay;"
-//         width="640" height="360"
-//         src="https://www.youtube.com/embed/UOxkGD8qRB4?autoplay=1&enablejsapi=1"
-//         frameborder="0"
-//       ></iframe>
-//     </div>
-//   )
-// }
-
 export class ChatContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -46,7 +33,6 @@ export class ChatContainer extends React.Component {
     this.emoteCheck = this.emoteCheck.bind(this);
     this.grabUsername = this.grabUsername.bind(this);
     this.onStart = this.onStart.bind(this);
-    // this.testVideo = this.testVideo.bind(this);
     this.formatTime = this.formatTime.bind(this);
     this.postMessage = this.postMessage.bind(this);
   }
@@ -86,7 +72,8 @@ export class ChatContainer extends React.Component {
           username: userObj.username,
           twitch_sub: userObj.twitch_sub,
           mod_status: userObj.mod_status,
-          currentTimeStamp: this.formatTime()
+          currentTimeStamp: this.formatTime(),
+          color: userObj.color
         };
         this.setState({
           twitchChats: [...this.state.twitchChats, chatInfo]
@@ -96,13 +83,6 @@ export class ChatContainer extends React.Component {
         console.error('error from test function in ChatContainer', err);
       });
   }
-
-  //testVideo(e) {
-    // const vid = document.getElementById('videoTest');
-    // vid.ontimeupdate = () => console.log(vid.currentTime);
-    // console.log('e', e);
-    // console.log('video touched', vid);
-  //}
 
   onStart() {
     // async check to see if video id exists in database
@@ -121,7 +101,6 @@ export class ChatContainer extends React.Component {
     const seconds = currentTime.seconds < 10 ? `0${currentTime.seconds}` : currentTime.seconds;
     const minutes = currentTime.minutes < 10 ? `0${currentTime.minutes}` : currentTime.minutes;
     const hours = currentTime.hours < 10 ? `0${currentTime.hours}` : currentTime.hours;
-
     if (currentTime.hours < 1) {
       if (currentTime.minutes < 1) {
         return `0:${seconds}`;
@@ -142,6 +121,7 @@ export class ChatContainer extends React.Component {
       user_id: 504,
       chat: message.chat,
       username: 'taco_TUESDAY',
+      color: 'slateblue',
       twitch_sub: true,
       mod_status: false,
       currentTimeStamp: this.formatTime()
@@ -150,8 +130,11 @@ export class ChatContainer extends React.Component {
       twitchChats: [...this.state.twitchChats, chatInfo]
     });
 
-    const clearTextArea = document.getElementById('textBox');
-    clearTextArea.value = '';
+
+  }
+
+  startSpamMode() {
+
   }
 
   componentDidMount() {
@@ -159,7 +142,6 @@ export class ChatContainer extends React.Component {
   }
 
   render() {
-    //console.log('👻', this.state);
     return (
       <App>
 
@@ -169,7 +151,6 @@ export class ChatContainer extends React.Component {
 
         <PostMessageBox postMessage={this.postMessage}/>
 
-        {/* <VideoTest /> */}
       </App>
     );
   }

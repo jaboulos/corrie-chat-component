@@ -29,6 +29,9 @@ const User = sequelize.define('users', {
   },
   mod_status: {
     type: Sequelize.BOOLEAN
+  },
+  color: {
+    type: Sequelize.STRING
   }
 });
 
@@ -46,6 +49,17 @@ const Chat = sequelize.define('chats', {
     type: Sequelize.INTEGER
   }
 });
+
+const grabUsernameFromDb = (id) => {
+  return User.findByPk(id)
+    .then((foundUser) => {
+      const username = foundUser.dataValues;
+      return username;
+    })
+    .catch((err)=> {
+      console.error('from db', err);
+    });
+};
 
 // function test() {
   // sequelize
@@ -73,37 +87,52 @@ const Chat = sequelize.define('chats', {
 //     .catch((err)=> {
 //       console.error(err);
 //     })
+
+//    return User.update({ color: randomColor }, { where: { id } })
+//       .then(user => {
+//         console.log('👩🏻‍🦱', user);
+//         return id++;
+//       })
+//       .catch((err) => {
+//         console.log('err with adding colors', err);
+//       });
 // }
 
 // test()
 
-const grabUsernameFromDb = (id) => {
-  return User.findByPk(id)
-    .then((foundUser) => {
-      const username = foundUser.dataValues;
-      return username;
-    })
-    .catch((err)=> {
-      console.error('from db', err);
-    });
-};
+// const addRandomColorsToUsers = () => {
+//   const generateRandomNumber = (minValue, maxValue) => {
+//     return Math.floor(Math.random() * (maxValue - minValue) + minValue);
+//   };
+//   const colorArray = ['red', 'blue', 'green', 'coral', 'firebrick', 'yellowgreen', 'orangered', 'seagreen', 'goldenrod', 'cadetblue', 'chocolate', 'dodgerblue', 'hotpink', 'blueviolet','springgreen'];
+
+//   let id = 1;
+
+//   const leggo = (id) => {
+//     let randomColor = colorArray[generateRandomNumber(0, colorArray.length)];
+//     console.log('🎨' , randomColor)
+//     // console.log('id:', id);
+//     return User.update({ color: randomColor }, { where: { id } })
+//       .then(user => {
+//         console.log('👩🏻‍🦱', user);
+//         return id++;
+//       })
+//       .catch((err) => {
+//         console.log('err with adding colors', err);
+//       });
+//   };
+
+
+//   while (id < 504) {
+//     leggo(id);
+//     id++;
+//   }
+// };
+
+// addRandomColorsToUsers();
+
+
+
 
 module.exports = grabUsernameFromDb;
 
-// export const saveChatToDb = (id) => {
-//   User.findById(id)
-//     .then((foundUser) => {
-//       const username = foundUser.dataValues.username;
-//       return functionInReactThatGrabsOtherStuff(username);
-//       console.log(me)
-//     })
-//     .then((chatObj) => {
-//       return Chat.create({ chatObj })
-//     })
-//     .then((message) => {
-//       console.log('the chat was successfully saved! ', message);
-//     })
-//     .catch((err)=> {
-//       console.error(err);
-//     })
-//
