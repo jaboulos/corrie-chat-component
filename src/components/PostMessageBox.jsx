@@ -59,6 +59,7 @@ export class PostMessageBox extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.toggleEmoteSelector = this.toggleEmoteSelector.bind(this);
     this.renderEmoteSelector = this.renderEmoteSelector.bind(this);
+    this.insertEmote = this.insertEmote.bind(this);
   }
 
   handleChange(e) {
@@ -70,17 +71,25 @@ export class PostMessageBox extends React.Component {
     this.props.postMessage(this.state.chat);
     const clearTextArea = document.getElementById('textBox');
     clearTextArea.value = '';
+    this.setState({chat: ''});
   }
 
   toggleEmoteSelector() {
-    console.log('CLICKED DUDE');
     this.setState(prevState => {
       return {emoteSelector: !prevState.emoteSelector};
     });
   }
 
+  insertEmote(phrase) {
+    const textArea = document.getElementById('textBox');
+    textArea.value += `${phrase} `;
+    this.setState(prevState => {
+      return {chat: `${prevState.chat} ${phrase}`};
+    });
+  }
+
   renderEmoteSelector() {
-    return this.state.emoteSelector ? <Modal> <EmoteSelector /> </Modal> : null;
+    return this.state.emoteSelector ? <Modal> <EmoteSelector emoteClicked={this.insertEmote} /> </Modal> : null;
   }
 
   render() {

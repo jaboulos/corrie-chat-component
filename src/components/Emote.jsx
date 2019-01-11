@@ -7,6 +7,10 @@ const EmoteBox = styled.span`
   width: 38px;
   display: block;
   text-align: center;
+  &:hover {
+    background-color: rgba(125,91,190,.2);
+    cursor: pointer;
+  }
 `;
 
 const EmoteImg = styled.img`
@@ -16,9 +20,8 @@ const EmoteImg = styled.img`
 `;
 
 export const Emote = (props) => {
-  console.log('props for emote 🔥', props);
   return (
-    <EmoteBox>
+    <EmoteBox onClick={() => props.emoteClicked(props.phrase)}>
       <EmoteImg src={props.src} />
     </EmoteBox>
   );

@@ -32,19 +32,26 @@ const EmoteList = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   padding: 20px;
+  border-bottom: 1px solid #dad8de;
 `;
 
 export const EmoteSelector = (props) => {
 
   const streamerEmotes = emotes.streamerEmotes;
+  const globalEmotes = emotes.globalEmotes;
 
   return (
     <EmoteSelectorBox>
       <EmoteListContainer>
         <EmoteList>
-          {Object.keys(emotes.streamerEmotes).map((key, index) => {
-            console.log('this is happening right?', key);
-            return <Emote phrase={key} src={streamerEmotes[key]} />;
+          {Object.keys(streamerEmotes).map((key, index) => {
+            return <Emote emoteClicked={props.emoteClicked} phrase={key} src={streamerEmotes[key]} />;
+          })}
+        </EmoteList>
+
+        <EmoteList>
+          {Object.keys(globalEmotes).map((key, index) => {
+            return <Emote emoteClicked={props.emoteClicked} phrase={key} src={globalEmotes[key]} />;
           })}
         </EmoteList>
       </EmoteListContainer>
