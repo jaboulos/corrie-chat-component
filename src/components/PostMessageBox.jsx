@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { EmoteSelector } from './EmoteSelector.jsx';
 import { HappyFaceIcon } from './HappyFaceIcon.jsx';
+import { Modal } from './Modal.jsx';
 
 const TextBoxContainer = styled.div`
   box-shadow: inset 0 1px 0 0 #dad8de;
@@ -28,7 +29,7 @@ const TextArea = styled.textarea`
   resize: none;
   font-family: inherit;
   outline: none;
-  width: 95%;
+  width: 87%;
 `;
 
 const PostButtonContainer = styled.div`
@@ -79,11 +80,10 @@ export class PostMessageBox extends React.Component {
   }
 
   renderEmoteSelector() {
-    return this.state.emoteSelector ? <EmoteSelector /> : null;
+    return this.state.emoteSelector ? <Modal> <EmoteSelector /> </Modal> : null;
   }
 
   render() {
-    console.log('🗺 state: ', this.state);
     return (
       <TextBoxContainer>
         <TextBox>
