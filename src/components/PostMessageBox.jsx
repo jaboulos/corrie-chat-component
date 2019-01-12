@@ -18,8 +18,12 @@ const TextBox = styled.div`
   color: #433f4a;
   line-height: 1.5;
   outline: 0;
-  transition: box-shadow 0.1s ease-in, border 0.1s ease-in;
+  transition: box-shadow .1s ease-in,border .1s ease-in;
   position: relative;
+  &:focus-within {
+    border-color: #7d5bbe;
+    box-shadow: 0 0 6px -2px #7d5bbe;
+  }
 `;
 
 const TextArea = styled.textarea`
@@ -57,6 +61,7 @@ export class PostMessageBox extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.onEnterPress = this.onEnterPress.bind(this);
     this.toggleEmoteSelector = this.toggleEmoteSelector.bind(this);
     this.renderEmoteSelector = this.renderEmoteSelector.bind(this);
     this.insertEmote = this.insertEmote.bind(this);
@@ -67,11 +72,18 @@ export class PostMessageBox extends React.Component {
     this.setState({ chat });
   }
 
-  handleClick(e) {
+  handleClick() {
     this.props.postMessage(this.state.chat);
     const clearTextArea = document.getElementById('textBox');
     clearTextArea.value = '';
     this.setState({chat: ''});
+  }
+
+  onEnterPress(e) {
+    if (e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
+      this.handleClick();
+    }
   }
 
   toggleEmoteSelector() {
@@ -96,12 +108,12 @@ export class PostMessageBox extends React.Component {
     return (
       <TextBoxContainer>
         <TextBox>
-          <TextArea id="textBox" placeholder="Post a message" onChange={e => this.handleChange(e)}/>
+          <TextArea id="textBox" placeholder="Post a message" onChange={e => this.handleChange(e)} onKeyDown={(e) => this.onEnterPress(e)}/>
           <HappyFaceIcon clickHandler={this.toggleEmoteSelector} />
           {this.renderEmoteSelector()}
         </TextBox>
         <PostButtonContainer>
-          <PostButton id="postButton" onClick={e => this.handleClick(e)}>
+          <PostButton id="postButton" onClick={this.handleClick}>
             Chat
           </PostButton>
         </PostButtonContainer>

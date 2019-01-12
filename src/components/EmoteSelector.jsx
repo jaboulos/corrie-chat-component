@@ -26,7 +26,6 @@ const EmoteListContainer = styled.div`
   overflow-y: scroll;
 `;
 
-
 const EmoteList = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -36,10 +35,8 @@ const EmoteList = styled.div`
 `;
 
 export const EmoteSelector = (props) => {
-
   const streamerEmotes = emotes.streamerEmotes;
   const globalEmotes = emotes.globalEmotes;
-
   return (
     <EmoteSelectorBox>
       <EmoteListContainer>

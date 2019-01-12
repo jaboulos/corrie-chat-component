@@ -1,6 +1,4 @@
-import { generateRandomNumber } from './chatGenerator.js';
-
-const adjectiveList = [
+export const adjectiveList = [
   'aback',
   'abaft',
   'abandoned',
@@ -1100,7 +1098,3 @@ const adjectiveList = [
   'zonked',
 ];
 
-export const randomAdjectiveGenerator = () => {
-  const randomAdjectiveIndex = generateRandomNumber(0, adjectiveList.length - 1);
-  return adjectiveList[randomAdjectiveIndex];
-};

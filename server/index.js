@@ -9,12 +9,6 @@ const grabUsernameFromDb = require('../db');
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../dist')));
 
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.urlencoded({ extended: true }));
-
 app.get('/users', (req, res) => {
   return grabUsernameFromDb(req.query.id)
     .then(userObj => {
@@ -24,10 +18,5 @@ app.get('/users', (req, res) => {
       console.error('from server side, err');
     });
 });
-
-// app.get('/chat', (req, res) => {
-
-
-// });
 
 app.listen(port, console.log('listening on port ' + port));
