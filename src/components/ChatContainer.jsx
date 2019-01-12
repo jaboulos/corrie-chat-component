@@ -23,77 +23,95 @@ const Header = styled.div`
   box-shadow: inset 0 -1px 0 0 #dad8de;
 `;
 
-
 export class ChatContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { twitchChats: [] };
+    this.state = {
+      intervalID: '',
+      twitchChats: []
+    };
 
+    this.generateChatsAtRandomTimes = this.generateChatsAtRandomTimes.bind(this);
     this.generateRandomChats = this.generateRandomChats.bind(this);
+    this.generateRandomUser = this.generateRandomUser.bind(this);
     this.emoteCheck = this.emoteCheck.bind(this);
-    this.grabUsername = this.grabUsername.bind(this);
-    this.onStart = this.onStart.bind(this);
     this.formatTime = this.formatTime.bind(this);
     this.postMessage = this.postMessage.bind(this);
   }
 
-  emoteCheck(obj) {
-    const words = obj.chat.split(' ');
-    const wordsWithEmoteImgTags = words.map(word => {
-      return emotes.globalEmotes[word]
-        ? `<span> <img max-width='28px' max-height='28px' src=${emotes.globalEmotes[word]} /> </span>`
-        : word;
-    });
-    obj.chat = wordsWithEmoteImgTags.join(' ');
-    return obj;
+  componentDidMount() {
+    // FUTURE TO DO:
+    // async check to see if video id exists in database
+    //   .then(update video state with ID)
+    //   .then(grab all the chats for that video out of db and set twitchChats state)
+    //else
+    const intervalID = setInterval(() => this.generateChatsAtRandomTimes(), 1000);
+    this.setState({intervalID});
+    timer.start();
   }
 
-  grabUsername(userID) {
-    return axios.get('/users', {
-      params: {
-        id: userID
-      }
-    })
-      .then(userObj => {
-        return userObj.data;
-      })
-      .catch(err => {
-        console.error('error from grabUsername in ChatContainer', err);
-      });
+  generateChatsAtRandomTimes() {
+    const randomMilisecond = generateRandomNumber(250, 5000);
+    setTimeout(() => this.generateRandomChats(), randomMilisecond);
   }
 
   generateRandomChats() {
-    const chatsWithEmotes = this.emoteCheck(twitchChatGenerator());
-    return this.grabUsername(chatsWithEmotes.user_id)
-      .then(userObj => {
+    return this.generateRandomUser()
+      .then(randomUser => {
+        const randomMessage = twitchChatGenerator(randomUser.twitch_sub);
         const chatInfo = {
-          user_id: chatsWithEmotes.user_id,
-          chat: chatsWithEmotes.chat,
-          username: userObj.username,
-          twitch_sub: userObj.twitch_sub,
-          mod_status: userObj.mod_status,
+          id: randomUser.id,
+          chat: this.emoteCheck(randomMessage, randomUser.twitch_sub),
+          username: randomUser.username,
+          twitch_sub: randomUser.twitch_sub,
+          mod_status: randomUser.mod_status,
           currentTimeStamp: this.formatTime(),
-          color: userObj.color
+          color: randomUser.color
         };
         this.setState({
           twitchChats: [...this.state.twitchChats, chatInfo]
         });
       })
       .catch(err => {
-        console.error('error from test function in ChatContainer', err);
+        console.error('error from generateRandomChats function in ChatContainer', err);
       });
   }
 
-  onStart() {
-    // async check to see if video id exists in database
-    //   .then(update video state with ID)
-    //   .then(grab all the chats for that video out of db and set twitchChats state)
+  generateRandomUser() {
+    const id = generateRandomNumber(1, 504);
+    return axios.get('/users', {
+      params: { id }
+    })
+      .then(userObj => {
+        return userObj.data;
+      })
+      .catch(err => {
+        console.error('error from generateRandomUser in ChatContainer', err);
+      });
+  }
 
-    //else
-    const intervalID = setInterval(() => this.generateRandomChats(), 500);
-    this.setState({intervalID});
-    console.log('🦴 YO DAWG', intervalID);
-    timer.start();
+  emoteCheck(string, bool = false) {
+    const words = string.split(' ');
+    if (bool) {
+      const phraseToImgTag = words.map(word => {
+        if (emotes.globalEmotes[word]) {
+          return `<span> <img max-width='28px' max-height='28px' src=${emotes.globalEmotes[word]} /> </span>`;
+        } else if (emotes.streamerEmotes[word]) {
+          return `<span> <img width='28px' height='28px' src=${emotes.streamerEmotes[word]} /> </span>`;
+        } else {
+          return word;
+        }
+      });
+      return phraseToImgTag.join(' ');
+
+    } else {
+      const wordsWithEmoteImgTags = words.map(word => {
+        return emotes.globalEmotes[word]
+          ? `<span> <img max-width='28px' max-height='28px' src=${emotes.globalEmotes[word]} /> </span>`
+          : word;
+      });
+      return wordsWithEmoteImgTags.join(' ');
+    }
   }
 
   formatTime() {
@@ -113,13 +131,10 @@ export class ChatContainer extends React.Component {
   }
 
   postMessage(chat) {
-    clearInterval(this.state.intervalID);
-
-    const message = this.emoteCheck( { chat } );
-
+    const message = this.emoteCheck(chat, true);
     const chatInfo = {
       user_id: 504,
-      chat: message.chat,
+      chat: message,
       username: 'taco_TUESDAY',
       color: 'slateblue',
       twitch_sub: true,
@@ -129,28 +144,13 @@ export class ChatContainer extends React.Component {
     this.setState({
       twitchChats: [...this.state.twitchChats, chatInfo]
     });
-
-
   }
-
-  startSpamMode() {
-
-  }
-
-  componentDidMount() {
-    this.onStart();
-  }
-
   render() {
     return (
       <App>
-
         <Header>Chat On Videos</Header>
-
         <ChatBox chatsArray={this.state.twitchChats} />
-
         <PostMessageBox postMessage={this.postMessage}/>
-
       </App>
     );
   }

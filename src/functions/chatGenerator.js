@@ -1,4 +1,4 @@
-import { randomAdjectiveGenerator } from './adjectiveGenerator.js';
+import { adjectiveList } from './adjectiveList.js';
 import { emotes } from './emotesObject.js';
 
 
@@ -9,6 +9,7 @@ export const generateRandomNumber = (minValue, maxValue) => {
 };
 
 const globalEmoteArray = Object.keys(emotes.globalEmotes);
+const subEmoteArray = Object.keys(emotes.streamerEmotes);
 
 const randomBoolean = () => {
   const output = Math.random();
@@ -20,49 +21,100 @@ const randomGlobalEmote = () => {
   return globalEmoteArray[randomEmoteIndex];
 };
 
+const randomSubEmote = () => {
+  const randomEmoteIndex = generateRandomNumber(0, subEmoteArray.length - 1);
+  return subEmoteArray[randomEmoteIndex];
+};
+
 const globalEmoteSpamGenerator = (repeatNum = 1) => {
   return `${randomGlobalEmote()} `.repeat(repeatNum);
 };
 
-const interjections = ['kek', 'huehuehue','woooooooooow', 'lol', 'lmao', 'hahahahahahaha', 'wth', 'huzzah', 'whyyyy', 'aha', 'ahem', 'ahh', 'ahoy', 'alas', 'arg', 'aw', 'bam', 'bingo', 'blah', 'boo', 'bravo', 'brr', 'cheers', 'congrats', 'congratulations', 'dang', 'drat', 'darn', 'duh', 'eek', 'eh', 'encore', 'eureka', 'fiddlesticks', 'gadzooks', 'gee', 'gee whiz', 'golly', 'goodbye', 'goodness', 'good grief', 'gosh', 'haha', 'hah', 'hallelujah', 'hello', 'hey', 'hmm', 'holy buckets', 'holy cow', 'holy smokes', 'hon hon hon', 'hot dog', 'huh', 'humph', 'hurray', 'oh', 'oh dear', 'oh my', 'oh well', 'oops', 'ouch', 'ow', 'phew', 'phooey', 'pooh', 'pow', 'rats', 'shh', 'shoo', 'thanks', 'there', 'tut-tut', 'uh-uh', 'uh-oh', 'ugh', 'uhhh', 'wahoo', 'well', 'whoa', 'whoops', 'wow', 'yeah', 'yes', 'yikes', 'yippee', 'yo', 'yuck'];
+const subEmoteSpamGenerator = (repeatNum = 1) => {
+  return `${randomSubEmote()} `.repeat(repeatNum);
+};
 
 const randomCasing = (string) => {
   return randomBoolean() ? string.toUpperCase() : string;
 };
 
-const randomPhraseGenerator = () => {
+const randomInterjection = () => {
+  const interjections = ['kek', 'huehuehue', 'woooooooooow', 'lol', 'lmao', 'hahahahahahaha', 'wth', 'huzzah', 'whyyyy', 'aha', 'ahem', 'ahh', 'ahoy', 'alas', 'arg', 'aw', 'bam', 'bingo', 'blah', 'boo', 'bravo', 'brr', 'cheers', 'congrats', 'congratulations', 'dang', 'drat', 'darn', 'duh', 'eek', 'eh', 'encore', 'eureka', 'fiddlesticks', 'gadzooks', 'gee', 'gee whiz', 'golly', 'goodbye', 'goodness', 'good grief', 'gosh', 'haha', 'hah', 'hallelujah', 'hello', 'hey', 'hmm', 'holy buckets', 'holy cow', 'holy smokes', 'hon hon hon', 'hot dog', 'huh', 'humph', 'hurray', 'oh', 'oh dear', 'oh my', 'oh well', 'oops', 'ouch', 'ow', 'phew', 'phooey', 'pooh', 'pow', 'rats', 'shh', 'shoo', 'thanks', 'there', 'tut-tut', 'uh-uh', 'uh-oh', 'ugh', 'uhhh', 'wahoo', 'well', 'whoa', 'whoops', 'wow', 'yeah', 'yes', 'yikes', 'yippee', 'yo', 'yuck'];
   const randomInterjection = interjections[generateRandomNumber(0, interjections.length - 1)];
   return randomCasing(randomInterjection);
 };
 
-const randomStatementGenerator = () => {
+const randomAdjectiveGenerator = () => {
+  const randomAdjectiveIndex = generateRandomNumber(0, adjectiveList.length - 1);
+  return randomCasing(adjectiveList[randomAdjectiveIndex]);
+};
+
+const randomPronounGenerator = () => {
   const pronouns = ['you are', 'ur', 'he is', 'she is', 'they are', 'this is', 'I am', 'we are', 'it is', 'that is'];
-  const randomInterjection = interjections[generateRandomNumber(0, interjections.length - 1)];
   const randomPronoun = pronouns[generateRandomNumber(0, pronouns.length - 1)];
-  const randomSentence = randomAdjectiveGenerator();
-  return `${randomPronoun} ${randomSentence}`;
+  return randomPronoun;
 };
 
-const randomChatGenerator = () => {
-  const optionObj = {
-    '1': randomPhraseGenerator(),
-    '2': randomStatementGenerator(),
-    '3': randomGlobalEmote(),
-    '4': globalEmoteSpamGenerator(generateRandomNumber(1, 30)),
-    '5': `${randomPhraseGenerator()} ${randomStatementGenerator()}`,
-    '6': `${randomPhraseGenerator()} ${randomStatementGenerator()} ${randomGlobalEmote()}`,
-    '7': `${randomPhraseGenerator()} ${randomStatementGenerator()} ${globalEmoteSpamGenerator(generateRandomNumber(1, 3))}`,
-    '8': `${randomPhraseGenerator()} ${randomStatementGenerator()} ${randomGlobalEmote()} ${randomGlobalEmote()}`,
-    '9': `${randomPhraseGenerator()} ${globalEmoteSpamGenerator(generateRandomNumber(1, 10))}`,
-    '10': `${randomStatementGenerator()} ${randomGlobalEmote()}`,
-    '11': `${randomCasing(randomAdjectiveGenerator())}`,
-  };
-  return optionObj[generateRandomNumber(1, 11).toString()];
+const randomPhraseGenerator = () => {
+  return `${randomPronounGenerator()} ${randomAdjectiveGenerator()}`;
 };
 
-export const twitchChatGenerator = () => {
-  return {
-    chat: randomChatGenerator(),
-    user_id: generateRandomNumber(1, 503)
-  };
+const randomEmoteCombos = ['Kappa', 'Squid1 Squid2 Squid3 Squid4', 'MercyWing1 PinkMercy MercyWing2', 'MercyWing1 Kappa MercyWing2', 'PowerUpL Kappa PowerUpR'];
+
+export const twitchChatGenerator = (bool) => {
+  const allUserPrivileges = [
+    ...randomEmoteCombos,
+    randomInterjection(),
+    randomAdjectiveGenerator(),
+    randomPhraseGenerator(),
+    randomGlobalEmote(),
+    globalEmoteSpamGenerator(generateRandomNumber(0, 30)),
+    `${randomInterjection()} ${randomGlobalEmote()}`,
+    `${randomInterjection()} ${globalEmoteSpamGenerator(generateRandomNumber(0, 30))}`,
+    `${randomAdjectiveGenerator()} ${randomGlobalEmote()}`,
+    `${randomInterjection()} ${randomAdjectiveGenerator()}`,
+    `${randomInterjection()} ${randomAdjectiveGenerator()} ${randomGlobalEmote()}`,
+    `${randomInterjection()} ${randomPhraseGenerator()}`,
+    `${randomInterjection()} ${randomPhraseGenerator()} ${randomGlobalEmote()}`,
+    `${randomPhraseGenerator()}`,
+    `${randomPhraseGenerator()} ${randomGlobalEmote()}`,
+  ];
+
+  const allSubPrivileges = [
+    ...randomEmoteCombos,
+    randomInterjection(),
+    randomAdjectiveGenerator(),
+    randomPhraseGenerator(),
+    randomGlobalEmote(),
+    globalEmoteSpamGenerator(generateRandomNumber(0, 30)),
+    `${randomInterjection()} ${randomGlobalEmote()}`,
+    `${randomInterjection()} ${randomGlobalEmote()} ${randomGlobalEmote()}`,
+    `${randomInterjection()} ${globalEmoteSpamGenerator(generateRandomNumber(0, 30))}`,
+    `${randomAdjectiveGenerator()} ${randomGlobalEmote()}`,
+    `${randomInterjection()} ${randomAdjectiveGenerator()}`,
+    `${randomInterjection()} ${randomAdjectiveGenerator()} ${randomGlobalEmote()}`,
+    `${randomInterjection()} ${randomPhraseGenerator()}`,
+    `${randomInterjection()} ${randomPhraseGenerator()} ${randomGlobalEmote()}`,
+    `${randomPhraseGenerator()}`,
+    `${randomPhraseGenerator()} ${randomGlobalEmote()}`,
+    randomSubEmote(),
+    subEmoteSpamGenerator(generateRandomNumber(0, 30)),
+    `${randomInterjection()} ${randomSubEmote()}`,
+    `${randomInterjection()} ${subEmoteSpamGenerator(generateRandomNumber(0, 30))}`,
+    `${randomAdjectiveGenerator()} ${randomSubEmote()}`,
+    `${randomAdjectiveGenerator()} ${randomSubEmote()} ${randomSubEmote()}`,
+    `${randomInterjection()} ${randomAdjectiveGenerator()}`,
+    `${randomInterjection()} ${randomAdjectiveGenerator()} ${randomSubEmote()}`,
+    `${randomInterjection()} ${randomAdjectiveGenerator()} ${randomSubEmote()} ${randomSubEmote()}`,
+    `${randomInterjection()} ${randomPhraseGenerator()}`,
+    `${randomInterjection()} ${randomPhraseGenerator()} ${randomSubEmote()}`,
+    `${randomInterjection()} ${randomPhraseGenerator()} ${randomSubEmote()} ${randomSubEmote()}`,
+    `${randomPhraseGenerator()}`,
+    `${randomPhraseGenerator()} ${randomSubEmote()}`,
+    `${randomPhraseGenerator()} ${randomSubEmote()} ${randomSubEmote()}`,
+    `${randomPhraseGenerator()} ${subEmoteSpamGenerator(generateRandomNumber(0, 30))}`,
+  ];
+  const randomIndex = generateRandomNumber(1, allUserPrivileges.length - 1);
+  const randomSubIndex = generateRandomNumber(1, allSubPrivileges.length - 1);
+  return bool ? allSubPrivileges[randomSubIndex] : allUserPrivileges[randomIndex];
 };
