@@ -1,30 +1,22 @@
-# Project Name
+# Twitch Chat Component
 
-> Project description
+Twitch chat is an integral part of Twitch.tv. It is a service that allows viewers to interact with each other and the streamer by displaying user’s messages. I have chosen to recreate this experience for educational purposes.
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/RPT10-TACO-TUESDAY/george-categories-component
+  - https://github.com/RPT10-TACO-TUESDAY/milena-menu-bar-component
+  - https://github.com/RPT10-TACO-TUESDAY/faris-video-service-component
 
 ## Table of Contents
 
-1. [Usage](#Usage)
 1. [Requirements](#requirements)
 1. [Development](#development)
 
-## Usage
-
-> Some usage instructions
 
 ## Requirements
-
-An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
-
 - Node 6.13.0
-- etc
+
 
 ## Development
 
@@ -32,9 +24,8 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 From within the root directory:
 
-```sh
-npm install -g webpack
-npm install
-```
+-npm install
+-npm build to start webpack
+-npm node-server to start the server
 
 # anna-chat-component
