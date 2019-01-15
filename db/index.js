@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const sampleUsers = require('./seedData.js')
 
 const sequelize = new Sequelize('twitchchat', 'root', 'WallacePennyToby', {
   host: 'localhost',
@@ -35,7 +36,19 @@ const User = sequelize.define('users', {
   }
 });
 
+
+
+User.bulkCreate(sampleUsers()).then(() => {
+  return User.findAll();
+}).then(users => {
+  console.log(users)
+});
+
 const Chat = sequelize.define('chats', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+  },
   video_timestamp: {
     type: Sequelize.STRING
   },
@@ -43,12 +56,16 @@ const Chat = sequelize.define('chats', {
     type: Sequelize.TEXT
   },
   user_id: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    references: 'users',
+    referencesKey: 'id'
   },
   video_id: {
     type: Sequelize.INTEGER
   }
 });
+
+User.hasMany(Chat);
 
 const grabUsernameFromDb = (id) => {
   return User.findByPk(id)

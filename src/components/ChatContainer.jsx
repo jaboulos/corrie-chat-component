@@ -78,7 +78,7 @@ export class ChatContainer extends React.Component {
   }
 
   generateRandomUser() {
-    const id = generateRandomNumber(1, 504);
+    const id = generateRandomNumber(1, 502);
     return axios.get('/users', {
       params: { id }
     })
