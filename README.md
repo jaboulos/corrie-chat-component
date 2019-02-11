@@ -32,6 +32,33 @@ MYSQL Database Creation Instructions
     1) mysql -u root < db/schema.sql
     2) npm run seed
 
+CRUD Operations Instructions
+
+Basic shape of json user object to be included in request body:
+
+{
+   username: String,
+   twitch_sub: Boolean,
+   mod_status: Boolean,
+   color: String (should be in hex format, eg. #ffffff)
+}
+
+CREATE
+
+- send POST request to '/users' with json object containing values you want created user to have
+
+READ
+
+- send GET request to '/users.' Include user id in query
+
+UPDATE
+
+- send PUT request to '/users.' Include json object with two values: 'id', the id of the user you want to update, and 'values', an object containing the key-value pairs you want to update
+
+DESTROY
+
+- send DELETE request to '/users' Include user id in query
+
 ### Installing Dependencies
 
 From within the root directory:
