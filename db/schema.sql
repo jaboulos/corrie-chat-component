@@ -1,4 +1,8 @@
-CREATE DATABASE twitchchat;
+
+
+CREATE DATABASE twitchchat
+  CHARACTER SET utf8;
+
 
 USE twitchchat;
 
