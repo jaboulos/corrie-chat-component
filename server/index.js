@@ -20,7 +20,8 @@ app.post('/users', (req, res)=>{
   models.User.create(req.body).then((data)=>{
     res.send(data)
   }).catch((err)=>{
-    console.log('error in user creation', error);
+    console.log('error in user creation', err);
+    res.sendStatus(400);
   })
 })
 
@@ -28,13 +29,12 @@ app.post('/users', (req, res)=>{
 //uses different function then the rest as so not to upset the front end
 app.get('/users', (req, res) => {
   if (req.query.id){
-    return func.grabUsernameFromDb(req.query.id)
-      .then(userObj => {
-        res.send(userObj);
-      })
-      .catch(err => {
-        console.error('from server side', err);
-    });
+    models.User.findByPk(req.query.id).then((user)=>{
+      res.send(user);
+    }).catch((err)=> {
+      console.log('error in fetching user', err);
+      res.sendStatus(400);
+    })
   }
   else res.send(404);
 });
@@ -46,6 +46,7 @@ app.put('/users', (req, res)=> {
     res.send(data);
   }).catch((err) => {
     console.log('error in update', err)
+    res.sendStatus(400);
   })
 })
 
@@ -55,6 +56,7 @@ app.delete('/users', (req, res)=>{
     res.end()
   }).catch((err)=>{
     console.log('error in deletion', err);
+    res.sendStatus(400)
   })
 })
 
