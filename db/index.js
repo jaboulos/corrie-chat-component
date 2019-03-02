@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize('twitchchat', 'root', 'root', {
-  host: 'localhost',
+  host: 'ec2-54-183-207-172.us-west-1.compute.amazonaws.com',
   dialect: 'mysql',
   operatorsAliases: false,
   define: {
