@@ -33,13 +33,17 @@ function generateNumberofRandomUsers(n) {
 }
 
 async function seedData(numberOfBatches, batchSize) {
+  let startTime = Date.now()
   for (let i = 0; i < numberOfBatches; i++) {
     let batch = generateNumberofRandomUsers(batchSize);
     await models.User.bulkCreate(batch)
       .catch(err => console.log('error seeding', err));
   }
+  let endTime = Date.now()
+  let timeTaken = endTime - startTime
+  console.log('Time taken:', timeTaken, 'ms');
 }
 
-seedData(10, 1);
+seedData(1, 1);
 
 module.exports = generateNumberofRandomUsers;
