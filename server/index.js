@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 //create
-app.post('/users', (req, res)=>{
+app.post('/chatUsers', (req, res)=>{
   models.User.create(req.body).then((data)=>{
     res.send(data)
   }).catch((err)=>{
@@ -28,7 +28,7 @@ app.post('/users', (req, res)=>{
 
 //read
 //uses different function then the rest as so not to upset the front end
-app.get('/users', (req, res) => {
+app.get('/chatUsers', (req, res) => {
   if (req.query.id){
     models.User.findByPk(req.query.id).then((user)=>{
       res.send(user);
@@ -41,7 +41,7 @@ app.get('/users', (req, res) => {
 });
 
 //update
-app.put('/users', (req, res)=> {
+app.put('/chatUsers', (req, res)=> {
   console.log('body', req.body);
   models.User.update(req.body.values, {where: {id: req.body.id}}).then((data)=>{
     res.send(data);
@@ -52,7 +52,7 @@ app.put('/users', (req, res)=> {
 })
 
 //delete
-app.delete('/users', (req, res)=>{
+app.delete('/chatUsers', (req, res)=>{
   models.User.destroy({where:{id: req.query.id}}).then(()=> {
     res.end()
   }).catch((err)=>{
