@@ -26,9 +26,22 @@ app.post('/chatUsers', (req, res)=>{
   })
 })
 
+//gets info for 20 users at end of database
+app.get('/chatUsers', (req, res)=> {
+  models.User.findAll({
+    limit: 20,
+    order: [['id', 'DESC']]
+  }).then((data)=>{
+    res.send(data);
+  }).catch((err)=>{
+    console.log('error in getting users', err);
+    res.sendStatus(404);
+  })
+})
+
 //read
-//uses different function then the rest as so not to upset the front end
-app.get('/chatUsers', (req, res) => {
+//gets info for one user
+app.get('/chatUser', (req, res) => {
   if (req.query.id){
     models.User.findByPk(req.query.id).then((user)=>{
       res.send(user);
